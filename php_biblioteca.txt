@@ -1,0 +1,171 @@
+
+=== PHP Biblioteca Básica a Intermediária ===
+
+🟡 Variáveis e Tipos
+$nome = "João";
+$idade = 25;
+$preco = 10.99;
+$ativo = true;
+$array = [1, 2, 3];
+
+🟡 Operadores
++  // adição
+-  // subtração
+*  // multiplicação
+/  // divisão
+%  // resto da divisão
+.  // concatenação de strings
+== // igual (valor)
+=== // idêntico (valor e tipo)
+!=  // diferente
+<, >, <=, >=  // comparação
+&& // e lógico
+|| // ou lógico
+!  // negação
+
+🟡 Estruturas de controle
+if ($idade >= 18) {
+    echo "Maior de idade";
+} elseif ($idade >= 12) {
+    echo "Adolescente";
+} else {
+    echo "Criança";
+}
+
+switch ($dia) {
+    case "segunda": echo "Começo da semana"; break;
+    case "sexta": echo "Quase fim de semana"; break;
+    default: echo "Outro dia";
+}
+
+🟡 Loops
+for ($i = 0; $i < 10; $i++) {
+    echo $i;
+}
+
+while ($condicao) {
+    // repete enquanto for verdadeira
+}
+
+do {
+    // executa ao menos uma vez
+} while ($condicao);
+
+foreach ($array as $item) {
+    echo $item;
+}
+
+🟡 Funções
+function saudacao($nome) {
+    return "Olá, $nome!";
+}
+
+echo saudacao("Maria");
+
+🟡 Arrays
+$array = ["a", "b", "c"];
+$assoc = ["nome" => "Ana", "idade" => 22];
+
+echo $array[0];
+echo $assoc["nome"];
+
+count($array); // número de elementos
+content://com.android.externalstorage.documents/tree/primary%3Atermux::primary:termux/acode/php_biblioteca.txtin_array("a", $array);
+array_push($array, "d");
+array_merge($array1, $array2);
+
+🟡 Strings
+strlen($str);           // tamanho
+strtoupper($str);       // maiúsculas
+strtolower($str);       // minúsculas
+str_replace("a", "b", $str);
+substr($str, 0, 5);     // cortar
+trim($str);             // remover espaços
+
+🟡 Superglobais
+$_GET["id"];
+$_POST["nome"];
+$_REQUEST["qualquer"];
+$_SESSION["user"];
+$_COOKIE["tema"];
+$_SERVER["REQUEST_URI"];
+
+🟡 Sessão e Cookie
+session_start();
+$_SESSION["usuario"] = "admin";
+
+setcookie("tema", "escuro", time() + 3600); // 1 hora
+
+echo $_COOKIE["tema"];
+
+🟡 Banco de dados com PDO
+$pdo = new PDO("mysql:host=localhost;dbname=test", "root", "");
+
+// SELECT
+$stmt = $pdo->prepare("SELECT * FROM tabela WHERE id = ?");
+$stmt->execute([$id]);
+$dados = $stmt->fetchAll();
+
+// INSERT
+$stmt = $pdo->prepare("INSERT INTO tabela (nome) VALUES (?)");
+$stmt->execute([$nome]);
+
+// UPDATE
+$stmt = $pdo->prepare("UPDATE tabela SET nome = ? WHERE id = ?");
+$stmt->execute([$nome, $id]);
+
+// DELETE
+$stmt = $pdo->prepare("DELETE FROM tabela WHERE id = ?");
+$stmt->execute([$id]);
+
+🟡 Upload de arquivo
+if (isset($_FILES["arquivo"])) {
+    $tmp = $_FILES["arquivo"]["tmp_name"];
+    $nome = $_FILES["arquivo"]["name"];
+    move_uploaded_file($tmp, "uploads/" . $nome);
+}
+
+🟡 Validação e Segurança
+filter_var($email, FILTER_VALIDATE_EMAIL);
+htmlspecialchars($input);
+password_hash($senha, PASSWORD_DEFAULT);
+password_verify($senha_digitada, $hash);
+
+🟡 Data e Hora
+date("Y-m-d");
+date("d/m/Y H:i");
+time(); // timestamp
+
+🟡 Utilitários
+die("Parou aqui");
+exit;
+var_dump($variavel); // debug
+print_r($array);     // debug de arrays
+include "arquivo.php";
+require "arquivo.php";
+
+
+=== O que é PDO? ===
+
+🔵 PDO (PHP Data Objects) é uma interface segura e flexível para acessar bancos de dados no PHP.
+
+✅ Por que usar PDO?
+1. Segurança com Prepared Statements (evita SQL Injection)
+2. Funciona com vários bancos (MySQL, PostgreSQL, SQLite, etc)
+3. Código limpo e profissional
+4. Suporte a transações
+
+🛠️ Exemplo:
+$pdo = new PDO("mysql:host=localhost;dbname=meubanco", "usuario", "senha");
+$stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
+$stmt->execute(["email@exemplo.com"]);
+$dados = $stmt->fetchAll();
+foreach ($dados as $linha) {
+    echo $linha["nome"];
+}
+
+🟡 Comparação com mysqli:
+- PDO suporta múltiplos bancos
+- PDO é orientado a objetos
+- Usa prepared statements (mais seguro)
+
